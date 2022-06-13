@@ -3,15 +3,16 @@
   <header-title></header-title>
   <!-- BODY -->
   <todo-form></todo-form>
-
+  <todo-list></todo-list>
 </template>
 
 <script>
 import HeaderTitle from "@/components/HeaderTitle";
 import TodoForm from "@/components/TodoForm";
+import TodoList from "@/components/TodoList";
 
 export default {
-  components: {HeaderTitle, TodoForm}
+  components: {TodoList, HeaderTitle, TodoForm}
 };
 </script>
 
