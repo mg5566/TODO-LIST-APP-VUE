@@ -1,7 +1,13 @@
 <template>
   <ul>
     <li v-for="todo in todos" :key="todo.id">
-      {{ todo }}
+      <h2>TITLE - {{ todo.title }}</h2>
+      <div>
+        <p>DESCRIPTION</p>
+        <p>{{ todo.description }}</p>
+        <p>{{ todo.date }}</p>
+        <p>{{ todo.status }}</p>
+      </div>
     </li>
   </ul>
 </template>
@@ -41,5 +47,10 @@ export default {
 </script>
 
 <style scoped>
-
+li {
+  list-style-type: none;
+  border: 1px solid #2c3e50;
+  border-radius: 16px;
+  margin: 1rem;
+}
 </style>
