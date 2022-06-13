@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import calcDate from "@/utils/calcDate";
+
 export default {
   data() {
     return {
@@ -22,7 +24,20 @@ export default {
   methods: {
     submitNewTodo() {
       console.log("Title", this.title, "Description", this.description);
+      this.title = "";
+      this.description ="";
       //  fetch new todo to Back-end DB
+      // todo spec
+      /*
+      todoItem = {
+        id: this.title,
+        title: this.title,
+        description: this.description,
+        status: "TODO",  // TODO, INPROGRESS, DONE
+        date: calcDate();
+        //date: "2022.06.13 14:05:46"  // new Date() 를 사용하여 새로운 날짜 생성
+      }
+      */
     }
   }
 };
