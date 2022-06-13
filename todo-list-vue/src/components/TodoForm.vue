@@ -35,7 +35,7 @@ export default {
         status: "TODO",
         date: calcDate(),
       }
-      // fetch new todo to Back-end DB
+      // post new todo to Back-end DB
       axios.post(`${FIREBASE_DOMAIN}/todos.json`, todoItem)
           .then((response) =>
               console.log("[SUCCESS]TODO POST", response)
