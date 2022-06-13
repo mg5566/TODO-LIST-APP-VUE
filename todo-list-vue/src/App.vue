@@ -1,3 +1,4 @@
+<script src="utils/calcDate.js"></script>
 <template>
   <!-- HEADER -->
   <header-title></header-title>
