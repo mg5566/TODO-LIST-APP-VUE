@@ -1,4 +1,3 @@
-<script src="utils/calcDate.js"></script>
 <template>
   <!-- HEADER -->
   <header-title></header-title>
@@ -10,6 +9,7 @@
 <script>
 import HeaderTitle from "@/components/HeaderTitle";
 import TodoForm from "@/components/TodoForm";
+
 export default {
   components: {HeaderTitle, TodoForm}
 };
