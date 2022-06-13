@@ -19,11 +19,13 @@ const FIREBASE_DOMAIN = "https://todoappvue-d3b68-default-rtdb.firebaseio.com/";
 
 export default {
   created() {
+    // data fetching
     axios.get(`${FIREBASE_DOMAIN}/todos.json`)
         .then((response) => {
           return response.data;
         }).catch((error) => console.warn("ERROR GET", error))
         .then((data) => {
+          // transform
           const transformedData = [];
 
           for(const key in data) {
