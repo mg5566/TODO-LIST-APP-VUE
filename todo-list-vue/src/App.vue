@@ -2,8 +2,14 @@
   <!-- HEADER -->
   <header-title></header-title>
   <!-- BODY -->
-  <todo-form @on-submit="submitNewTodo"></todo-form>
-  <todo-list :todos="todos"></todo-list>
+  <modal-view v-if="isFormModalView" @close-modal="isFormModalView = false">
+    <todo-form @on-submit="submitNewTodo"></todo-form>
+  </modal-view>
+  <button @click="isFormModalView = true">NEW TODO</button>
+  <todo-list :todos="todos" @on-click="clickTodoItem"></todo-list>
+  <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
+    <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
+  </modal-view>
 </template>
 
 <script>
@@ -12,17 +18,29 @@ import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import axios from "axios";
 import calcDate from "@/utils/calcDate";
+import TodoCard from "@/components/TodoCard";
 
 const FIREBASE_DOMAIN = "https://todoappvue-d3b68-default-rtdb.firebaseio.com/";
 
 export default {
-  components: {TodoList, HeaderTitle, TodoForm},
+  components: {TodoCard, TodoList, HeaderTitle, TodoForm},
   data() {
     return {
       todos: [],
+      isFormModalView: false,
+      isItemModalView: false,
+      showItemID: null,
     };
   },
   methods: {
+    clickTodoItem(id) {
+      console.log("id", id);
+      this.isItemModalView = true;
+      this.showItemID = id;
+
+      const item = this.todos.filter((todo) => todo.id === this.showItemID);
+      console.log(item);
+    },
     loadTodos() {
       // data fetching
       axios.get(`${FIREBASE_DOMAIN}/todos.json`)
@@ -49,7 +67,7 @@ export default {
       console.log("Title", title, "Description", desc);
       // create todo item
       const todoItem = {
-        id: title,
+        // id: title,
         title: title,
         description: desc,
         status: "TODO",
@@ -61,9 +79,11 @@ export default {
           .then((response) =>
               console.log("[SUCCESS]TODO POST", response)
           ).then(() => {
-            // call GET request methods
-            this.loadTodos();
-          })
+        // call GET request methods
+        this.loadTodos();
+
+        this.isFormModalView = false;
+      })
           .catch((error) =>
               console.warn("[ERROR]TODO POST", error)
           );
