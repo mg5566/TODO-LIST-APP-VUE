@@ -10,7 +10,7 @@ const calcDate = () => {
   let minutes = today.getMinutes();
   let seconds = today.getSeconds();
 
-  const result = year + "." + month + "." + date + ". " + hours + ":" + minutes +":" + seconds;
+  const result = year + "." + month + "." + date + " " + hours + ":" + minutes +":" + seconds;
 
   return result;
 };

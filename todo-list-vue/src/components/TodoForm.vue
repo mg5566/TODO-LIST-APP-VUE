@@ -1,4 +1,5 @@
 <template>
+  <card-base>
   <form @submit.prevent="submitNewTodo">
     <header>
       <h3>New TODO</h3>
@@ -9,6 +10,7 @@
     <input id="description" type="text" required v-model="description"/>
     <button type="submit">ADD</button>
   </form>
+  </card-base>
 </template>
 
 <script>
