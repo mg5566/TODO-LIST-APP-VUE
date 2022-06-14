@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import CardBase from "./components/UI/Card-Base"
+import CardBase from "./components/UI/CardBase"
 
 const app = createApp(App)
 
