@@ -8,7 +8,7 @@
   <button @click="isFormModalView = true">NEW TODO</button>
   <todo-list :todos="todos" @on-click="clickTodoItem"></todo-list>
   <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
-    <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
+    <todo-item :todo-item="todos.filter((item) => item.id === showItemID)"></todo-item>
   </modal-view>
 </template>
 
@@ -18,12 +18,12 @@ import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import axios from "axios";
 import calcDate from "@/utils/calcDate";
-import TodoCard from "@/components/TodoCard";
+import TodoItem from "@/components/TodoItem";
 
 const FIREBASE_DOMAIN = "https://todoappvue-d3b68-default-rtdb.firebaseio.com/";
 
 export default {
-  components: {TodoCard, TodoList, HeaderTitle, TodoForm},
+  components: {TodoItem, TodoList, HeaderTitle, TodoForm},
   data() {
     return {
       todos: [],
