@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="todo in todos" :key="todo.id">
+    <li v-for="todo in todos" :key="todo.id" @click.prevent="$emit('on-click', todo.id)">
       <card-base>
         <h2>TITLE - {{ todo.title }}</h2>
         <div>
