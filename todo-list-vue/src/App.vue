@@ -6,7 +6,7 @@
     <todo-form @on-submit="submitNewTodo"></todo-form>
   </modal-view>
   <button @click="isFormModalView = true">NEW TODO</button>
-  <todo-list :todos="todos" @on-click="clickTodoItem"></todo-list>
+  <todo-list :todos="todos" @on-click="clickTodoItem" @load-todos="loadTodos"></todo-list>
   <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
     <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
   </modal-view>
