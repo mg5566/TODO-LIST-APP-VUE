@@ -7,7 +7,7 @@
           <p>DESCRIPTION</p>
           <p>{{ todo.description }}</p>
           <p>{{ todo.date }}</p>
-          <p>{{ todo.status }}</p>
+          <p class="action--status" @click.stop.prevent="$emit('set-next-status', todo.id)">{{ todo.status }}</p>
         </div>
         <button @click.stop.prevent="$emit('on-delete', todo.id)">DELETE</button>
       </card-base>
@@ -26,5 +26,15 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.action--status {
+  color: white;
+  background-color: #2c3e50;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border-width: medium;
+  border-color: skyblue;
 }
 </style>

@@ -6,7 +6,7 @@
     <todo-form @on-submit="submitNewTodo"></todo-form>
   </modal-view>
   <button @click="isFormModalView = true">NEW TODO</button>
-  <todo-list :todos="todos" @on-click="clickTodoItem" @on-delete="deleteTodo"></todo-list>
+  <todo-list :todos="todos" @on-click="clickTodoItem" @set-next-status="setNextStatus" @on-delete="deleteTodo"></todo-list>
   <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
     <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
   </modal-view>
@@ -110,6 +110,23 @@ export default {
           })
           .catch((error) => console.warn("[ERROR]TODO DELETE", error))
           .then(() => this.loadTodos());
+    },
+    setNextStatus(id) {
+      console.log("clicked id of todo", id);
+      const nowTodo = this.todos.filter((todo) => todo.id === id);
+      console.log("now status", nowTodo[0].status);
+      const newStatus = nowTodo[0].status === "TODO" ? {status: "INPROGRESS"} : {status: "DONE"};
+
+      if (nowTodo[0].status !== "DONE") {
+        axios.patch(`${FIREBASE_DOMAIN}/todos/${id}.json`, newStatus)
+            .then((response) => {
+              console.log("response", response);
+              this.loadTodos();
+            })
+            .catch((error) => {
+              console.warn("[ERROR] status PATCH", error);
+            });
+      }
     }
   },
   created() {
