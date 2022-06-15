@@ -6,7 +6,7 @@
     <todo-form @on-submit="submitNewTodo"></todo-form>
   </modal-view>
   <button @click="isFormModalView = true">NEW TODO</button>
-  <todo-list :todos="todos" @on-click="clickTodoItem"></todo-list>
+  <todo-list :todos="todos" @on-click="clickTodoItem" @on-delete="deleteTodo"></todo-list>
   <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
     <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
   </modal-view>
@@ -91,7 +91,7 @@ export default {
       // todo spec
       /*
       todoItem = {
-        id: this.title,
+        id: key,
         title: this.title,
         description: this.description,
         status: "TODO",  // TODO, INPROGRESS, DONE
@@ -99,6 +99,17 @@ export default {
         //date: "2022.06.13 14:05:46"  // new Date() 를 사용하여 새로운 날짜 생성
       }
       */
+    },
+    deleteTodo(id) {
+      console.log("DELETE ID", id);
+      axios.delete(`${FIREBASE_DOMAIN}/todos/${id}.json`)
+          .then((response) => {
+            if (response.status !== 200) {
+              console.log("뭔가 잘못된거임...")
+            }
+          })
+          .catch((error) => console.warn("[ERROR]TODO DELETE", error))
+          .then(() => this.loadTodos());
     }
   },
   created() {

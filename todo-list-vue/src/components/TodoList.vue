@@ -9,6 +9,7 @@
           <p>{{ todo.date }}</p>
           <p>{{ todo.status }}</p>
         </div>
+        <button @click.stop.prevent="$emit('on-delete', todo.id)">DELETE</button>
       </card-base>
     </li>
   </ul>
