@@ -1,6 +1,7 @@
 <template>
   <!-- HEADER -->
   <header-title></header-title>
+  <router-view></router-view>
   <!-- BODY -->
   <modal-view v-if="isFormModalView" @close-modal="isFormModalView = false">
     <todo-form @on-submit="submitNewTodo"></todo-form>

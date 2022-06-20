@@ -5,7 +5,7 @@ import TodosList from "./components/pages/TodosList";
 import DonesList from "./components/pages/DonesList";
 
 const router = createRouter({
-  history: createWebHistory,
+  history: createWebHistory(),
   routes: [
     { path: "/", redirect: "todos" },
     {
