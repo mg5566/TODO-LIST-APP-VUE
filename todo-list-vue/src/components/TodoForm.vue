@@ -34,6 +34,18 @@ const onSubmitHandler = () => {
 
 <style scoped>
 form {
-  display: flex;
+  padding: 2rem;
+  text-align: center;
 }
+
+input {
+  width: 100%;
+}
+
+button {
+  margin: 2rem;
+  padding: 1rem;
+  font-size: large;
+}
+
 </style>
