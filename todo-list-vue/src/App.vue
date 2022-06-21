@@ -20,7 +20,7 @@ export default {
       todos: ref([]),
       isFormModalView: false,
       isItemModalView: false,
-      showItemID: null,
+      isLoading: false,
     };
   },
   provide() {
@@ -29,26 +29,20 @@ export default {
       deleteTodo: this.deleteTodo,
       submitNewTodo: this.submitNewTodo,
       setNextStatus: this.setNextStatus,
-      firebaseDomain: FIREBASE_DOMAIN,
+      isLoading: computed(() => this.isLoading),
     };
   },
   methods: {
-    clickTodoItem(id) {
-      console.log("id", id);
-      this.isItemModalView = true;
-      this.showItemID = id;
-
-      const item = this.todos.filter((todo) => todo.id === this.showItemID);
-      console.log(item);
-    },
     loadTodos() {
       console.log('loadTodos')
+      this.isLoading = true;
       // data fetching
       axios.get(`${FIREBASE_DOMAIN}/todos.json`)
           .then((response) => {
             return response.data;
           }).catch((error) => console.warn("ERROR GET", error))
           .then((data) => {
+            this.isLoading = false;
             // transform
             const transformedData = [];
 
@@ -83,7 +77,6 @@ export default {
         // call GET request methods
         this.loadTodos();
 
-        this.isFormModalView = false;
         this.$router.push('/');
       })
           .catch((error) =>

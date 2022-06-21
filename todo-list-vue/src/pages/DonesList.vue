@@ -1,5 +1,7 @@
 <template>
   <h2>Done List Page</h2>
+  <p v-if="isLoading">is loading</p>
+  <p v-else-if="!isLoading && donesData.length === 0">is empty</p>
   <todo-list :listSrc="donesData"></todo-list>
 </template>
 
@@ -11,5 +13,7 @@ const todosData = inject('todos');
 const donesData = computed(() => {
   return todosData.value.filter((todo) => todo.status === 'DONE');
 })
-console.log("filtered data", donesData);
+
+const isLoading = inject('isLoading');
+console.log('isLoading', isLoading);
 </script>
