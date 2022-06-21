@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import AddTodo from "./components/pages/AddTodo";
-import TodosList from "./components/pages/TodosList";
-import DonesList from "./components/pages/DonesList";
+import AddTodo from "./pages/AddTodo";
+import TodosList from "./pages/TodosList";
+import DonesList from "./pages/DonesList";
 
 const router = createRouter({
   history: createWebHistory(),
