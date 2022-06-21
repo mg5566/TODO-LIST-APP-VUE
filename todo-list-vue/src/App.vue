@@ -42,6 +42,7 @@ export default {
       console.log(item);
     },
     loadTodos() {
+      console.log('loadTodos')
       // data fetching
       axios.get(`${FIREBASE_DOMAIN}/todos.json`)
           .then((response) => {

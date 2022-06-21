@@ -5,9 +5,11 @@
 
 <script setup>
 import TodoList from "../components/TodoList";
-import {inject} from "vue";
+import {computed, inject} from "vue";
 
 const todosData = inject('todos');
-const donesData = todosData.value.filter((todo) => todo.status === 'DONE')
+const donesData = computed(() => {
+  return todosData.value.filter((todo) => todo.status === 'DONE');
+})
 console.log("filtered data", donesData);
 </script>
