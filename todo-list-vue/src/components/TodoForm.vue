@@ -13,25 +13,22 @@
   </card-base>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: "",
-      description: "",
-    };
-  },
-  emits: ["on-submit"],
-  methods: {
-    onSubmitHandler() {
-      // call POST request methods
-      this.$emit("on-submit", this.title, this.description);
+<script setup>
+import {inject, ref} from "vue";
 
-      // set input to blank
-      this.title = "";
-      this.description = "";
-    }
-  }
+const title = ref('');
+const description = ref('');
+
+const submitNewTodo = inject('submitNewTodo');
+
+const onSubmitHandler = () => {
+  // call POST request methods
+  // this.$emit("on-submit", this.title, this.description);
+  submitNewTodo(title.value, description.value);
+
+  // set input to blank
+  title.value = "";
+  description.value = "";
 };
 </script>
 
