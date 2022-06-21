@@ -7,7 +7,7 @@
     <todo-form @on-submit="submitNewTodo"></todo-form>
   </modal-view>
   <button @click="isFormModalView = true">NEW TODO</button>
-  <todo-list :todos="todos" @on-click="clickTodoItem" @set-next-status="setNextStatus" @on-delete="deleteTodo"></todo-list>
+  <!--  <todo-list :todos="todos" @on-click="clickTodoItem" @set-next-status="setNextStatus" @on-delete="deleteTodo"></todo-list>-->
   <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
     <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
   </modal-view>
@@ -16,21 +16,28 @@
 <script>
 import HeaderTitle from "@/components/HeaderTitle";
 import TodoForm from "@/components/TodoForm";
-import TodoList from "@/components/TodoList";
+// import TodoList from "@/components/TodoList";
 import axios from "axios";
 import calcDate from "@/utils/calcDate";
 import TodoCard from "@/components/TodoCard";
+import {computed, ref} from "vue";
 
 const FIREBASE_DOMAIN = "https://todoappvue-d3b68-default-rtdb.firebaseio.com/";
 
 export default {
-  components: {TodoCard, TodoList, HeaderTitle, TodoForm},
+  components: {TodoCard, HeaderTitle, TodoForm},
   data() {
     return {
-      todos: [],
+      todos: ref([]),
       isFormModalView: false,
       isItemModalView: false,
       showItemID: null,
+    };
+  },
+  provide() {
+    return {
+      todos: computed(() => this.todos),
+      deleteTodo: this.deleteTodo,
     };
   },
   methods: {
@@ -106,7 +113,7 @@ export default {
       axios.delete(`${FIREBASE_DOMAIN}/todos/${id}.json`)
           .then((response) => {
             if (response.status !== 200) {
-              console.log("뭔가 잘못된거임...")
+              console.log("뭔가 잘못된거임...");
             }
           })
           .catch((error) => console.warn("[ERROR]TODO DELETE", error))

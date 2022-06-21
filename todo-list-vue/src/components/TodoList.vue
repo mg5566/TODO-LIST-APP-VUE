@@ -9,16 +9,19 @@
           <p>{{ todo.date }}</p>
           <p class="action--status" @click.stop.prevent="$emit('set-next-status', todo.id)">{{ todo.status }}</p>
         </div>
-        <button @click.stop.prevent="$emit('on-delete', todo.id)">DELETE</button>
+<!--        <button @click.stop.prevent="$emit('on-delete', todo.id)">DELETE</button>-->
+        <button @click.stop.prevent="deleteTodo(todo.id)">DELETE</button>
       </card-base>
     </li>
   </ul>
 </template>
 
-<script>
-export default {
-  props: ["todos"],
-};
+<script setup>
+import {inject} from "vue";
+
+const todos = inject('todos');
+const deleteTodo = inject('deleteTodo');
+console.log(todos);
 </script>
 
 <style scoped>
