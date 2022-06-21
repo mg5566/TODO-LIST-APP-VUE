@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="todo in todos" :key="todo.id" @click.prevent="$emit('on-click', todo.id)">
+    <li v-for="todo in listSrc" :key="todo.id" @click.prevent="$emit('on-click', todo.id)">
       <card-base>
         <h2>TITLE - {{ todo.title }}</h2>
         <div>
@@ -9,7 +9,6 @@
           <p>{{ todo.date }}</p>
           <p class="action--status" @click.stop.prevent="setNextStatus(todo.id)">{{ todo.status }}</p>
         </div>
-<!--        <button @click.stop.prevent="$emit('on-delete', todo.id)">DELETE</button>-->
         <button @click.stop.prevent="deleteTodo(todo.id)">DELETE</button>
       </card-base>
     </li>
@@ -17,12 +16,12 @@
 </template>
 
 <script setup>
-import {inject} from "vue";
+import {defineProps, inject} from "vue";
 
-const todos = inject('todos');
+defineProps(['listSrc'])
+
 const deleteTodo = inject('deleteTodo');
 const setNextStatus = inject('setNextStatus');
-
 </script>
 
 <style scoped>
