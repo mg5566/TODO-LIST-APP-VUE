@@ -3,10 +3,10 @@
   <header-title></header-title>
   <router-view></router-view>
   <!-- BODY -->
-  <modal-view v-if="isFormModalView" @close-modal="isFormModalView = false">
-    <todo-form @on-submit="submitNewTodo"></todo-form>
-  </modal-view>
-  <button @click="isFormModalView = true">NEW TODO</button>
+<!--  <modal-view v-if="isFormModalView" @close-modal="isFormModalView = false">-->
+<!--    <todo-form @on-submit="submitNewTodo"></todo-form>-->
+<!--  </modal-view>-->
+<!--  <button @click="isFormModalView = true">NEW TODO</button>-->
   <!--  <todo-list :todos="todos" @on-click="clickTodoItem" @set-next-status="setNextStatus" @on-delete="deleteTodo"></todo-list>-->
   <modal-view v-if="isItemModalView" @close-modal="isItemModalView = false">
     <todo-card :todo-item="todos.filter((item) => item.id === showItemID)"></todo-card>
@@ -15,7 +15,6 @@
 
 <script>
 import HeaderTitle from "@/components/HeaderTitle";
-import TodoForm from "@/components/TodoForm";
 // import TodoList from "@/components/TodoList";
 import axios from "axios";
 import calcDate from "@/utils/calcDate";
@@ -25,7 +24,7 @@ import {computed, ref} from "vue";
 const FIREBASE_DOMAIN = "https://todoappvue-d3b68-default-rtdb.firebaseio.com/";
 
 export default {
-  components: {TodoCard, HeaderTitle, TodoForm},
+  components: {TodoCard, HeaderTitle},
   data() {
     return {
       todos: ref([]),
@@ -38,6 +37,9 @@ export default {
     return {
       todos: computed(() => this.todos),
       deleteTodo: this.deleteTodo,
+      submitNewTodo: this.submitNewTodo,
+      setNextStatus: this.setNextStatus,
+      firebaseDomain: FIREBASE_DOMAIN,
     };
   },
   methods: {
@@ -91,6 +93,7 @@ export default {
         this.loadTodos();
 
         this.isFormModalView = false;
+        this.$router.push('/');
       })
           .catch((error) =>
               console.warn("[ERROR]TODO POST", error)

@@ -7,7 +7,7 @@
           <p>DESCRIPTION</p>
           <p>{{ todo.description }}</p>
           <p>{{ todo.date }}</p>
-          <p class="action--status" @click.stop.prevent="$emit('set-next-status', todo.id)">{{ todo.status }}</p>
+          <p class="action--status" @click.stop.prevent="setNextStatus(todo.id)">{{ todo.status }}</p>
         </div>
 <!--        <button @click.stop.prevent="$emit('on-delete', todo.id)">DELETE</button>-->
         <button @click.stop.prevent="deleteTodo(todo.id)">DELETE</button>
@@ -21,7 +21,8 @@ import {inject} from "vue";
 
 const todos = inject('todos');
 const deleteTodo = inject('deleteTodo');
-console.log(todos);
+const setNextStatus = inject('setNextStatus');
+
 </script>
 
 <style scoped>
